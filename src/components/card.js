@@ -43,7 +43,9 @@ const Card = (article) => {
   author.appendChild(imgContainer);
   author.appendChild(authorname);
   imgContainer.appendChild(img);
-  card.addEventListener('click', console.log(article.headline));
+
+  //event
+  card.addEventListener('click', () => {console.log(article.headline)});
 
   return card;
 }
@@ -53,9 +55,9 @@ const cardAppender = (selector) => {
   // ---------------------
   // Implement this function that takes a css selector as its only argument.
   // It should obtain articles from this endpoint: `https://lambda-times-api.herokuapp.com/articles`
-  // However, the articles do not come organized in a single, neat array. Inspect the response closely!
+  // However, the articlele, neat array. Inspect the response closely!
   // Create a card from each and every article object in the response, using the Card component.
-  // Append each card to the element in the DOM that matches the selector passed to the function.
+  // Append each card to the element in the DOM that matches do not come organized in a sings the selector passed to the function.
   //
 
   let container = document.querySelector(selector);
@@ -78,17 +80,6 @@ const cardAppender = (selector) => {
   //object.keys puts key in an array
   //rem.data.articles[topic] = object passed through function
 }
-
-
-
-
-
-
-
-
-
-
-
 
 
 export { Card, cardAppender }
