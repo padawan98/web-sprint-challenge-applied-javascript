@@ -1,3 +1,5 @@
+import axios from "axios"
+
 const Card = (article) => {
   // TASK 5
   // ---------------------
@@ -17,6 +19,33 @@ const Card = (article) => {
   //   </div>
   // </div>
   //
+  let card = document.createElement('div');
+  let headLine = document.createElement('div');
+  let author = document.createElement('div');
+  let imgContainer = document.createElement('div');
+  let img = document.createElement('img');
+  let authorname = document.createElement('span');
+
+  card.classList.add('card');
+  headLine.classList.add('headline');
+  author.classList.add('author');
+  imgContainer.classList.add('img-container');
+  //img and authorName not classes
+
+  //info inside containers
+  headLine.textContent = article.headline;
+  img.src = article.authorPhoto;
+  authorname.textContent = article.authorName;
+  
+  //appending
+  card.appendChild(headLine);
+  card.appendChild(author);
+  author.appendChild(imgContainer);
+  author.appendChild(authorname);
+  imgContainer.appendChild(img);
+  card.addEventListener('click', console.log(article.headline));
+
+  return card;
 }
 
 const cardAppender = (selector) => {
@@ -28,6 +57,38 @@ const cardAppender = (selector) => {
   // Create a card from each and every article object in the response, using the Card component.
   // Append each card to the element in the DOM that matches the selector passed to the function.
   //
+
+  let container = document.querySelector(selector);
+  axios.get('https://lambda-times-api.herokuapp.com/articles')
+  .then(sel => 
+    {
+      console.log(sel.data.articles);
+      let arr = (Object.keys(sel.data.articles));
+      //object.keys puts key in an array
+      arr.forEach(element =>
+        {
+          //rem.data.articles[topic] = object passed through function
+          sel.data.articles[element].forEach(el =>
+            {
+              container.appendChild(Card(el));
+            });
+        });
+    })
+  .catch(err => {console.log(err)});
+  //object.keys puts key in an array
+  //rem.data.articles[topic] = object passed through function
 }
+
+
+
+
+
+
+
+
+
+
+
+
 
 export { Card, cardAppender }
